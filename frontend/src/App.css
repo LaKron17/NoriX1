@@ -1,0 +1,17 @@
+#my-done{
+  position:fixed;
+  top:50%;
+  right:0%;
+  padding:10px;
+  z-index: 999;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius:20px;
+  background-color: rgba(0, 0, 0, 0.274);
+  color:white;
+  box-shadow: 10px 10px 10px lightgray;
+   
+
+}
+#my-done:hover{
+  background-color: black;
+}
