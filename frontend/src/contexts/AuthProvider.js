@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from "react";
 import { set } from "react-hook-form";
 import { token } from "../.env";
 
-export const AuthContext = createContext();
 
 const AuthState = () => {
   const [user, setUser] = useState(null);
@@ -25,6 +24,9 @@ const AuthState = () => {
   
   return { user, setUser, isLoading, setIsLoading };
 };
+
+export const AuthContext = createContext();
+
 
 const AuthProvider = ({ children }) => {
   const contextData = AuthState();

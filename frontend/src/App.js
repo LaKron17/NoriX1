@@ -10,18 +10,27 @@ import AuthProvider from "./contexts/AuthProvider";
 import PrivateRoute from "./routes/PrivateRoute";
 import useAuth from "./hooks/useAuth";
 import jwt_decode from "jwt-decode";
-import { token } from "./.env";
+import { domain, token } from "./.env";
 import { set } from "react-hook-form";
+import TasksProvider from "./contexts/TasksProvider";
+import useTasks from "./hooks/useTasks";
+import axios from "axios";
 
 function App() {
-  const [sideBar, setSideBar] = useState(false);
-
-  const handleCloseSideBar = (e) => {
-    sideBar && setSideBar(false);
-  };
   const { user } = useAuth();
 
- 
+  const { setDoneTasks } = useTasks();
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get(`${domain}/?query=done`, {
+          headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
+        })
+        .then((res) => setDoneTasks(res.data));
+    };
+    getData();
+  }, [user]);
+
   return (
     <div>
       <BrowserRouter>
@@ -37,20 +46,6 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
         </Routes>
-
-        {user && (
-          <div onClick={handleCloseSideBar} className="container-fuild">
-            <a
-              onClick={() => setSideBar(true)}
-              id="my-done"
-              class="text-decoration-none fw-bolder"
-            >
-              My Done <sup>{user?.total_done}</sup>{" "}
-            </a>
-          </div>
-        )}
-
-        {sideBar && <SideBar handleCloseSideBar={handleCloseSideBar} />}
       </BrowserRouter>
     </div>
   );

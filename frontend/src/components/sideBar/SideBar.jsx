@@ -1,135 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Task from "../task/Task";
 import Tasks from "../../pages/tasks/Tasks";
 import "./SideBar.css";
+import axios from "axios";
+import { domain } from "../../.env";
+import useTasks from "../../hooks/useTasks";
 const SideBar = ({ handleCloseSideBar }) => {
-  const tasks = [
-    {
-      note: "assignment tailwind css use korte hobe, onek kicu ace aro korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "ghum theke utbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "brush  korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "assignment tailwind css use korte hobe, onek kicu ace aro korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "ghum theke utbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "brush  korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "assignment tailwind css use korte hobe, onek kicu ace aro korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "ghum theke utbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "brush  korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "assignment tailwind css use korte hobe, onek kicu ace aro korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "ghum theke utbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "brush  korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "assignment tailwind css use korte hobe, onek kicu ace aro korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "ghum theke utbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "brush  korbo",
-      is_done: false,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-    {
-      note: "bathroom korbo korbo",
-      is_done: true,
-      color: "gray",
-    },
-  ];
+  const {doneTasks} = useTasks()
+
   return (
     <aside className="">
       <div className="p-3 mb-2 border-bottom d-flex justify-center-center align-items-center sticky-top bg-white">
@@ -141,15 +19,9 @@ const SideBar = ({ handleCloseSideBar }) => {
         </button>
         <h5 className="fw-bolder">Your Have Done</h5>
       </div>
-      <div className="input-group p-3 mx-auto">
-        <input
-          type="text"
-          className="form-control task-input"
-          placeholder="Search by tasknote,date"
-        />
-      </div>
+
       <div className="row row-cols-1 g-4 p-2">
-        {tasks.map((task, index) => (
+        {doneTasks.map((task, index) => (
           <Task key={index} task={task} />
         ))}
       </div>
