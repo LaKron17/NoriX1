@@ -11,7 +11,6 @@ const Header = () => {
     localStorage.removeItem("token");
   };
 
-  console.log(user)
   return (
     <header className="sticky-top bg-white ">
       <nav className="container d-flex my-2 justify-content-between align-items-center">

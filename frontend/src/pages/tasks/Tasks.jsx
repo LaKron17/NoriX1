@@ -14,7 +14,7 @@ const Tasks = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const { undoneTasks, setUndoneTasks, doneTasks } = useTasks();
-  console.log(doneTasks);
+ 
   const [sideBar, setSideBar] = useState(false);
 
   const handleCloseSideBar = (e) => {

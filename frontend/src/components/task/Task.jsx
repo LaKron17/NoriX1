@@ -12,12 +12,12 @@ const Task = ({ task }) => {
     setColor(e.target.value)
     task.color=e.target.value
     axios.put(`${domain}/${task.id}/`,task,{headers:{Authorization:`JWT ${localStorage.getItem("token")}`}})
-    .then(res=> console.log(res.data))
+    .then(res=> {})
   };
 
   const handleDone = (id) => {
     task.is_done = true;
-    console.log(localStorage.getItem("token"));
+   
     axios
       .put(`${domain}/${id}/`, task, {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },

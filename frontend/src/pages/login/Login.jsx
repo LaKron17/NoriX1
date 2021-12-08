@@ -28,7 +28,7 @@ const Login = () => {
         const token = res?.data?.access;
         localStorage.setItem("token", token);
         const decoded_token = jwtDecode(token);
-        console.log(decoded_token);
+       
         setUser(decoded_token);
         notify("You have been logged In!", "success");
 
