@@ -7,6 +7,7 @@ import SideBar from "../../components/sideBar/SideBar";
 import Task from "../../components/task/Task";
 import useAuth from "../../hooks/useAuth";
 import useTasks from "../../hooks/useTasks";
+import notify from "../../utils/notify";
 import "./Tasks.css";
 
 const Tasks = () => {
@@ -51,7 +52,8 @@ const Tasks = () => {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        setUndoneTasks([res.data, ...undoneTasks]);
+        setUndoneTasks([res.data, ...undoneTasks])
+        notify('Task Added Successfully!','success')
       });
     reset();
   };
@@ -76,7 +78,7 @@ const Tasks = () => {
           <Task key={index} task={task} />
         ))}
       </div>
-
+        {undoneTasks.length ===0 && <p className="text-center text-secondary">Not Task Added yet!!</p> }
       <div onClick={handleCloseSideBar} className="container-fluid">
         <a
           onClick={() => setSideBar(true)}

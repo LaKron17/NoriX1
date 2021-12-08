@@ -16,12 +16,12 @@ const Header = () => {
     <header className="sticky-top bg-white ">
       <nav className="container d-flex my-2 justify-content-between align-items-center">
         <h2>
-          Task <span class="bg-warning p-1 rounded-3">Manager</span>
+          Task <span className="bg-warning p-1 rounded-3">Manager</span>
         </h2>
         <div className="d-flex">
-            {user?<button onClick={LogOut} class="text-decoration-underline pe-auto border-0">
+            {user?<a onClick={LogOut} style={{cursor:'pointer'}} className="text-decoration-underline h5 text-dark pe-auto border-0">
             {user?.username}(Logout)
-          </button>:<Link to="/login"  class="text-decoration-underline h5 text-dark border-0">
+          </a>:<Link to="/login"  className="text-decoration-underline h5 text-dark border-0">
             Login/Register
           </Link>}
           

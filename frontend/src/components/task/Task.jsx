@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { domain, token } from "../../.env";
 import useTasks from "../../hooks/useTasks";
+import notify from "../../utils/notify";
 import "./Task.css";
 const Task = ({ task }) => {
   const [color, setColor] = useState("");
@@ -18,9 +19,13 @@ const Task = ({ task }) => {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
       })
       .then((res) => {
+        notify("Task added to done successfully!", "success");
         const restData = undoneTasks.filter((t) => t.id != task.id);
         setUndoneTasks(restData);
         setDoneTasks([task, ...doneTasks]);
+      })
+      .catch((error) => {
+        notify("Something went wrong. Please try again!!", "info");
       });
   };
 
@@ -30,10 +35,13 @@ const Task = ({ task }) => {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
       })
       .then((res) => {
+        notify("Task deleted successfully!", "success");
         const restData = doneTasks.filter((t) => t.id !== task.id);
-
         setDoneTasks(restData);
-      });
+      })
+      .catch((error) =>
+        notify("Something went wrong. Please try again!!", "info")
+      );
   };
 
   return (
@@ -47,7 +55,10 @@ const Task = ({ task }) => {
             <i className="fas fa-trash"></i> delete
           </button>
         ) : (
-          <button onClick={() => handleDone(task.id)} className="markdone">
+          <button
+            onClick={() => handleDone(task.id)}
+            className="markdone bg-dark"
+          >
             <i className="fas fa-check"></i> Mark as Done
           </button>
         )}

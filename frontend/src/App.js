@@ -11,14 +11,16 @@ import PrivateRoute from "./routes/PrivateRoute";
 import useAuth from "./hooks/useAuth";
 import jwt_decode from "jwt-decode";
 import { domain, token } from "./.env";
-import { set } from "react-hook-form";
-import TasksProvider from "./contexts/TasksProvider";
 import useTasks from "./hooks/useTasks";
 import axios from "axios";
 
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+
+toast.configure()
+
 function App() {
   const { user } = useAuth();
-
   const { setDoneTasks } = useTasks();
   useEffect(() => {
     const getData = async () => {

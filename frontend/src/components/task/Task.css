@@ -2,6 +2,8 @@
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
     position: relative;
+    border:1px solid whitesmoke;
+    box-shadow: 5px 8px 5px 1px lightgray;
   
 }
 .task-card:hover{

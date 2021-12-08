@@ -25,6 +25,7 @@ const SideBar = ({ handleCloseSideBar }) => {
           <Task key={index} task={task} />
         ))}
       </div>
+      {doneTasks.length ===0&& <p className="text-center text-secondary">No Task Done yet !!</p> }
     </aside>
   );
 };
