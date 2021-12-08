@@ -5,8 +5,9 @@ import useTasks from "../../hooks/useTasks";
 import notify from "../../utils/notify";
 import "./Task.css";
 const Task = ({ task }) => {
-  const [color, setColor] = useState(task?.color);
+  const [color, setColor] = useState('');
   const { undoneTasks, setUndoneTasks, doneTasks, setDoneTasks } = useTasks();
+  
   const handleColorChange = (e) => {
     setColor(e.target.value)
     task.color=e.target.value
@@ -49,7 +50,7 @@ const Task = ({ task }) => {
 
   return (
     <div className="col">
-      <div style={{ backgroundColor: color }} className="card task-card">
+      <div style={{ backgroundColor: task?.color }} className="card task-card">
         {task.is_done ? (
           <button
             onClick={() => handleDelete(task.id)}

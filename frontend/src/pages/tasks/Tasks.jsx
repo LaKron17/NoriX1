@@ -83,7 +83,7 @@ const Tasks = () => {
         <a
           onClick={() => setSideBar(true)}
           id="my-done"
-          class="text-decoration-none fw-bolder"
+          className="text-decoration-none fw-bolder"
         >
           My Done <sup>{doneTasks.length}</sup>{" "}
         </a>
