@@ -15,7 +15,7 @@ const Header = () => {
     <header className="sticky-top bg-white ">
       <nav className="container d-flex my-2 justify-content-between align-items-center">
         <h2>
-          Task <span className="bg-warning p-1 rounded-3">Manager</span>
+         <Link className="text-decoration-none text-dark" to="/"> Task <span className="bg-warning p-1 rounded-3">Manager</span></Link>
         </h2>
         <div className="d-flex">
             {user?<a onClick={LogOut} style={{cursor:'pointer'}} className="text-decoration-underline h5 text-dark pe-auto border-0">
