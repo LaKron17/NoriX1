@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import useAuth from "../../hooks/useAuth";
 import jwtDecode from "jwt-decode";
 import notify from "../../utils/notify";
+import { domain } from "../../.env";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -22,7 +23,7 @@ const Login = () => {
 
   const loginSubmit = (data) => {
     axios
-      .post("http://localhost:8000/auth/login/", data)
+      .post(`${domain}/auth/login/`, data)
       .then((res) => {
         const token = res?.data?.access;
         localStorage.setItem("token", token);
@@ -47,7 +48,7 @@ const Login = () => {
       return;
     }
     axios
-      .post("http://localhost:8000/auth/register/", data)
+      .post(`${domain}/auth/register/`, data)
       .then((res) => {
         const token = res?.data?.token?.access;
         localStorage.setItem("token", token);

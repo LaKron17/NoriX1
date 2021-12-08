@@ -1,9 +1,9 @@
 
 export const token = localStorage.getItem('token')
 
-//for local build
+//for local domain
 // export const domain = 'http://localhost:8000'  
 
-//for production build
+//for production domain
 export const domain = 'https://taskmanage.pythonanywhere.com'  
 

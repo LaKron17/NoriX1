@@ -28,7 +28,7 @@ Task:
     
     update Task =>
         Header => Authorization:'JWT <token>' or 'Bearer <token>'
-        METHOD-PUT or PATCH or Delete: /task/<id>
+        METHOD-PUT or PATCH or Delete: /<id>
             body: {note,color(option),is_done(optional)}
             response : {user,note,color,is_done,created,updated}
 
