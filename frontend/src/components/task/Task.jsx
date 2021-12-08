@@ -5,10 +5,13 @@ import useTasks from "../../hooks/useTasks";
 import notify from "../../utils/notify";
 import "./Task.css";
 const Task = ({ task }) => {
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState(task?.color);
   const { undoneTasks, setUndoneTasks, doneTasks, setDoneTasks } = useTasks();
   const handleColorChange = (e) => {
-    setColor(e.target.value);
+    setColor(e.target.value)
+    task.color=e.target.value
+    axios.put(`${domain}/${task.id}/`,task,{headers:{Authorization:`JWT ${localStorage.getItem("token")}`}})
+    .then(res=> console.log(res.data))
   };
 
   const handleDone = (id) => {
