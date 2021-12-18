@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { domain, token } from "../../.env";
-import useTasks from "../../hooks/useTasks";
+import { addToDoneList, setDoneList, setUndoneList } from "../../redux/slices/taskSlice";
 import notify from "../../utils/notify";
 import "./Task.css";
+
 const Task = ({ task }) => {
   const [color, setColor] = useState('');
-  const { undoneTasks, setUndoneTasks, doneTasks, setDoneTasks } = useTasks();
-  
+  const {doneList,undoneList} = useSelector(state=> state.tasks) 
+  const dispatch = useDispatch() 
+
   const handleColorChange = (e) => {
     setColor(e.target.value)
-    task.color=e.target.value
+    console.log(task)
+    task.color = e.target.value
     axios.put(`${domain}/${task.id}/`,task,{headers:{Authorization:`JWT ${localStorage.getItem("token")}`}})
     .then(res=> {})
   };
@@ -24,9 +28,9 @@ const Task = ({ task }) => {
       })
       .then((res) => {
         notify("Task added to done successfully!", "success");
-        const restData = undoneTasks.filter((t) => t.id != task.id);
-        setUndoneTasks(restData);
-        setDoneTasks([task, ...doneTasks]);
+        const restData = undoneList.filter((t) => t.id != task.id);
+        dispatch(setUndoneList(restData))
+        dispatch(addToDoneList(task))
       })
       .catch((error) => {
         notify("Something went wrong. Please try again!!", "info");
@@ -40,8 +44,8 @@ const Task = ({ task }) => {
       })
       .then((res) => {
         notify("Task deleted successfully!", "success");
-        const restData = doneTasks.filter((t) => t.id !== task.id);
-        setDoneTasks(restData);
+        const restData = doneList.filter((t) => t.id !== task.id);
+        dispatch(setDoneList(restData))
       })
       .catch((error) =>
         notify("Something went wrong. Please try again!!", "info")

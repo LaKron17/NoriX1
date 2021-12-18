@@ -1,21 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { domain, token } from "../../.env";
 import Loader from "../../components/loader/Loader";
 import SideBar from "../../components/sideBar/SideBar";
 import Task from "../../components/task/Task";
 import useAuth from "../../hooks/useAuth";
-import useTasks from "../../hooks/useTasks";
+import { addToUndoneList, setUndoneList } from "../../redux/slices/taskSlice";
 import notify from "../../utils/notify";
 import "./Tasks.css";
 
 const Tasks = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
-  const { undoneTasks, setUndoneTasks, doneTasks } = useTasks();
  
   const [sideBar, setSideBar] = useState(false);
+
+  const {undoneList,doneList} = useSelector(state => state.tasks)
+
+  const dispatch = useDispatch()
 
   const handleCloseSideBar = (e) => {
     sideBar && setSideBar(false);
@@ -29,7 +33,8 @@ const Tasks = () => {
           headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
         })
         .then((res) => {
-          setUndoneTasks(res.data);
+          // setUndoneTasks(res.data);
+          dispatch(setUndoneList(res.data))
         })
         .finally(() => {
           setIsLoading(false);
@@ -52,7 +57,7 @@ const Tasks = () => {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        setUndoneTasks([res.data, ...undoneTasks])
+        dispatch(addToUndoneList(res.data))
         notify('Task Added Successfully!','success')
       });
     reset();
@@ -74,18 +79,18 @@ const Tasks = () => {
       </form>
 
       <div className="row row-cols-1 row-cols-md-4 g-4 my-4">
-        {undoneTasks?.map((task, index) => (
+        {undoneList?.map((task, index) => (
           <Task key={index} task={task} />
         ))}
       </div>
-        {undoneTasks.length ===0 && <p className="text-center text-secondary">Not Task Added yet!!</p> }
+        {undoneList.length ===0 && <p className="text-center text-secondary">Not Task Added yet!!</p> }
       <div onClick={handleCloseSideBar} className="container-fluid">
         <a
           onClick={() => setSideBar(true)}
           id="my-done"
           className="text-decoration-none fw-bolder"
         >
-          My Done <sup>{doneTasks.length}</sup>{" "}
+          My Done <sup>{doneList.length}</sup>{" "}
         </a>
       </div>
       {sideBar && <SideBar handleCloseSideBar={handleCloseSideBar} />}

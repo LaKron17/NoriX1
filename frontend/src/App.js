@@ -11,24 +11,24 @@ import PrivateRoute from "./routes/PrivateRoute";
 import useAuth from "./hooks/useAuth";
 import jwt_decode from "jwt-decode";
 import { domain, token } from "./.env";
-import useTasks from "./hooks/useTasks";
 import axios from "axios";
-
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setDoneList } from "./redux/slices/taskSlice";
 
-toast.configure()
+toast.configure();
 
 function App() {
   const { user } = useAuth();
-  const { setDoneTasks } = useTasks();
+  const dispatch = useDispatch();
   useEffect(() => {
     const getData = async () => {
       await axios
         .get(`${domain}/?query=done`, {
           headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
         })
-        .then((res) => setDoneTasks(res.data));
+        .then((res) => dispatch(setDoneList(res.data)));
     };
     getData();
   }, [user]);

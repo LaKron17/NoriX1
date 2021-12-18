@@ -1,6 +1,5 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
-import SideBar from "../sideBar/SideBar";
 import "./Header.css";
 import {Link} from 'react-router-dom'
 const Header = () => {

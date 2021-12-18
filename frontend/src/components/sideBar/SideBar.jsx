@@ -4,10 +4,11 @@ import Tasks from "../../pages/tasks/Tasks";
 import "./SideBar.css";
 import axios from "axios";
 import { domain } from "../../.env";
-import useTasks from "../../hooks/useTasks";
+import { useSelector } from "react-redux";
 const SideBar = ({ handleCloseSideBar }) => {
-  const {doneTasks} = useTasks()
 
+  const{doneList} = useSelector(state => state.tasks)
+  
   return (
     <aside className="">
       <div className="p-3 mb-2 border-bottom d-flex justify-center-center align-items-center sticky-top bg-white">
@@ -21,11 +22,11 @@ const SideBar = ({ handleCloseSideBar }) => {
       </div>
 
       <div className="row row-cols-1 g-4 p-2">
-        {doneTasks.map((task, index) => (
+        {doneList?.map((task, index) => (
           <Task key={index} task={task} />
         ))}
       </div>
-      {doneTasks.length ===0&& <p className="text-center text-secondary">No Task Done yet !!</p> }
+      {doneList.length ===0&& <p className="text-center text-secondary">No Task Done yet !!</p> }
     </aside>
   );
 };
