@@ -10,20 +10,27 @@ export const taskSlice = createSlice({
   },
   reducers: {
     setDoneList: (state, action) => {
-      state.doneList = action.payload;
+       state.doneList = action.payload;
     },
     setUndoneList: (state, action) => {
-      state.undoneList = action.payload;
+       state.undoneList = action.payload;
+       
     },
     addToDoneList: (state, action) => {
-      state.doneList.unshift(action.payload);
-    },
-    addToUndoneList: (state, action) => {
-      state.undoneList.unshift(action.payload);
+      state.doneList.push(action.payload)
+     },
+     addToUndoneList: (state, action) => {
+         state.undoneList=[action.payload,...state.undoneList]
+         console.log(state.undoneList)
+         return state
+       },
+    removeFromDoneList: (state, action) => {
+      return state.undoneList.filter(task=> task.id!==action.payload.id)
     },
   },
 });
 
-export const {setDoneList,setUndoneList,addToDoneList, addToUndoneList } = taskSlice.actions;
+export const { setDoneList, setUndoneList, addToDoneList, addToUndoneList,removeFromDoneList } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;

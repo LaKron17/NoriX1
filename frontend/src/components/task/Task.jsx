@@ -2,35 +2,46 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { domain, token } from "../../.env";
-import { addToDoneList, setDoneList, setUndoneList } from "../../redux/slices/taskSlice";
+import {
+  addToDoneList,
+  removeFromDoneList,
+  setDoneList,
+  setUndoneList,
+} from "../../redux/slices/taskSlice";
 import notify from "../../utils/notify";
 import "./Task.css";
 
-const Task = ({ task }) => {
-  const [color, setColor] = useState('');
-  const {doneList,undoneList} = useSelector(state=> state.tasks) 
-  const dispatch = useDispatch() 
+const Task = ({ task: _task }) => {
+  const [task, setTask] = useState(_task);
+  const [color, setColor] = useState("");
+  const { doneList, undoneList } = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const handleColorChange = (e) => {
-    setColor(e.target.value)
-    console.log(task)
-    task.color = e.target.value
-    axios.put(`${domain}/${task.id}/`,task,{headers:{Authorization:`JWT ${localStorage.getItem("token")}`}})
-    .then(res=> {})
+    setColor(e.target.value);
+    setTask({ ...task, color: e.target.value });
+    console.log(task);
+    axios
+      .put(`${domain}/${task.id}/`, task, {
+        headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
+      })
+      .then((res) => {});
   };
 
   const handleDone = (id) => {
-    task.is_done = true;
-   
+    const data = { ...task, is_done: true };
     axios
-      .put(`${domain}/${id}/`, task, {
+      .put(`${domain}/${id}/`, data, {
         headers: { Authorization: `JWT ${localStorage.getItem("token")}` },
       })
       .then((res) => {
         notify("Task added to done successfully!", "success");
-        const restData = undoneList.filter((t) => t.id != task.id);
-        dispatch(setUndoneList(restData))
-        dispatch(addToDoneList(task))
+        console.log(res.data);
+
+        const restData = undoneList.filter((t) => t.id != res.data.id);
+        dispatch(setUndoneList(restData));
+
+        dispatch(addToDoneList(res.data));
       })
       .catch((error) => {
         notify("Something went wrong. Please try again!!", "info");
@@ -44,13 +55,16 @@ const Task = ({ task }) => {
       })
       .then((res) => {
         notify("Task deleted successfully!", "success");
-        const restData = doneList.filter((t) => t.id !== task.id);
-        dispatch(setDoneList(restData))
+        dispatch(removeFromDoneList(task));
       })
       .catch((error) =>
         notify("Something went wrong. Please try again!!", "info")
       );
   };
+
+  useEffect(() => {
+    dispatch(setUndoneList(undoneList));
+  }, [undoneList]);
 
   return (
     <div className="col">

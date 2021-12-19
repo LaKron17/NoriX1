@@ -14,14 +14,15 @@ import { domain, token } from "./.env";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { setDoneList } from "./redux/slices/taskSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setDoneList, setUndoneList } from "./redux/slices/taskSlice";
 
 toast.configure();
 
 function App() {
   const { user } = useAuth();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     const getData = async () => {
       await axios
@@ -33,6 +34,7 @@ function App() {
     getData();
   }, [user]);
 
+ 
   return (
     <div>
       <BrowserRouter>

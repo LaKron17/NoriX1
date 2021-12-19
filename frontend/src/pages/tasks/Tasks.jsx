@@ -63,9 +63,12 @@ const Tasks = () => {
     reset();
   };
 
+
   if (isLoading) {
     return <Loader />;
   }
+
+  
 
   return (
     <div className="container">
@@ -79,7 +82,7 @@ const Tasks = () => {
       </form>
 
       <div className="row row-cols-1 row-cols-md-4 g-4 my-4">
-        {undoneList?.map((task, index) => (
+        {undoneList.map((task, index) => (
           <Task key={index} task={task} />
         ))}
       </div>
