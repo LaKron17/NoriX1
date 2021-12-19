@@ -1,8 +1,11 @@
 
 # Task manager
 
-**Task Manager** is a fullstack Task Management Application. Where people can register and login in their accounts.Then They can add, highlight,make as done and delete their tasks.
-I did it as a Interview Task for a company called ***'Moontropy Private Limited'***
+**Task Manager** is a Fullstack Task Management Application, where
+people can register and login into their account. Users can perform add
+their daily tasks, color-highlight any task, after done they can mark a
+task as done. Also in the sidebar screen, they can see their done tasks.
+
 ## Live
 **Video Demo:** https://youtu.be/4S5oi9WjbZE
 
@@ -11,7 +14,7 @@ I did it as a Interview Task for a company called ***'Moontropy Private Limited'
 **Backend api root**: http://taskmanage.pythonanywhere.com
 ## Tech Stack
 
-**Frontend:** Reactjs,Bootstrap,Context Api,react-router-dom,react-hook,react-hook-form,react-toastify,jwt-decode,axios
+**Frontend:** Reactjs,Bootstrap,Redux,Context Api,react-router-dom,react-hook,react-hook-form,react-toastify,jwt-decode,axios
 
 **Backend:** Python,Django,Restframework,simpleJWT,cors-headers,mysqlclient
 
