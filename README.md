@@ -18,7 +18,7 @@ task as done. Also in the sidebar screen, they can see their done tasks.
 
 **Backend:** Python,Django,Restframework,simpleJWT,cors-headers,mysqlclient
 
-**Database:** Mysql,Sqlite3
+**Database:** Mysql,Sqlite3.
 
 
 
